@@ -1,7 +1,6 @@
 const { Schema, model } = require("mongoose");
 const { randomBytes, createHmac } = require("crypto");
 
-
 const { createToken } = require("../services/service.js");
 
 const userSchema = new Schema({
@@ -16,8 +15,7 @@ const userSchema = new Schema({
   },
   profileImage: {
     type: String,
-    default:
-      "/public/images/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png",
+    default: "/public/images/download.png",
   },
   salt: {
     type: String,
@@ -35,8 +33,7 @@ userSchema.pre("save", async function (next) {
   const hashedPassword = createHmac("sha256", salt)
     .update(user.password)
     .digest("hex");
-  
-  
+
   user.salt = salt;
   user.password = hashedPassword;
   next();
@@ -51,13 +48,10 @@ userSchema.static(
 
     const salt = user.salt;
     const hashedPassword = user.password;
- 
 
-    
     const providedPasswrod = createHmac("sha256", salt)
       .update(password)
       .digest("hex");
-
 
     if (hashedPassword !== providedPasswrod) throw new Error("Wrong Password");
 

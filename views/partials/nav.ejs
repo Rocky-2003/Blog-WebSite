@@ -19,8 +19,8 @@
         </li>
 
         <% if (locals.user) { %>
-<li class="nav-item">
-          <a class="nav-link" href="#">Add blog</a>
+        <li class="nav-item">
+          <a class="nav-link" href="/blog">Add blog</a>
         </li>
         <li class="nav-item dropdown">
           <a
@@ -30,11 +30,10 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-           Rocky Mor
+            Rocky Mor
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/user/logout">LogOut</a></li>
-            
           </ul>
         </li>
         <% } else { %>

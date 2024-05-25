@@ -3,8 +3,11 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 
 const userRoute = require("./routes/user");
+const blogRoute = require("./routes/blog.js");
 const connection = require("./connection.js");
-const {checkForAuthenticationCookie} = require("./middlewares/authenticat.js");
+const {
+  checkForAuthenticationCookie,
+} = require("./middlewares/authenticat.js");
 
 const app = express();
 const PORT = 8001;
@@ -21,12 +24,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.resolve("./public")));
 app.use(checkForAuthenticationCookie("token"));
-app.use("/user", userRoute);
-
 app.get("/", (req, res) => {
   return res.render("home", {
     user: req.user,
   });
 });
 
+app.use("/user", userRoute);
+app.use("/blog", blogRoute);
 app.listen(PORT, () => console.log("Server is Started: 8001"));
