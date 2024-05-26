@@ -24,6 +24,7 @@ route.get("/", async (req, res) => {
 
 route.post("/addBlog", upload.single("coverImage"), async (req, res) => {
   const { body, title } = req.body;
+  const blogs = await Blog.find({});
 
   const blogData = await Blog.create({
     title,
@@ -31,7 +32,6 @@ route.post("/addBlog", upload.single("coverImage"), async (req, res) => {
     coverImage: `./uploads/${req.file.filename}`,
     createdBy: req.user._id,
   });
-  console.log(blogData);
 
   return res.redirect("/");
 });
